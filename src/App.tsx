@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
+import { HashRouter, Routes, Route, useLocation } from "react-router-dom"
 import { RootLayout } from "@/components/layout/RootLayout"
 import { CartProvider } from "@/context/CartContext"
 import { Home } from "@/pages/Home"
@@ -18,7 +18,7 @@ function ScrollToTop() {
 
 export function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ScrollToTop />
       <CartProvider>
         <Routes>
@@ -27,18 +27,30 @@ export function App() {
             <Route path="catalogue" element={<Catalogue />} />
             <Route path="product/:id" element={<ProductDetail />} />
             <Route path="house-name-plates" element={<CategoryPage />} />
-            <Route path="house-name-plates/:subcategory" element={<CategoryPage />} />
+            <Route
+              path="house-name-plates/:subcategory"
+              element={<CategoryPage />}
+            />
             <Route path="office-name-plates" element={<CategoryPage />} />
-            <Route path="office-name-plates/:subcategory" element={<CategoryPage />} />
+            <Route
+              path="office-name-plates/:subcategory"
+              element={<CategoryPage />}
+            />
             <Route path="granite-monuments" element={<CategoryPage />} />
-            <Route path="granite-monuments/:subcategory" element={<CategoryPage />} />
+            <Route
+              path="granite-monuments/:subcategory"
+              element={<CategoryPage />}
+            />
             <Route path="acrylic-wall-photos" element={<CategoryPage />} />
-            <Route path="acrylic-wall-photos/:subcategory" element={<CategoryPage />} />
+            <Route
+              path="acrylic-wall-photos/:subcategory"
+              element={<CategoryPage />}
+            />
             <Route path="contact" element={<Contact />} />
           </Route>
         </Routes>
       </CartProvider>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
