@@ -58,7 +58,7 @@ export function MajorCategories() {
             toggleActions: "play none none reverse",
             once: true,
           },
-        },
+        }
       )
     })
     return () => ctx.revert()
@@ -68,8 +68,12 @@ export function MajorCategories() {
     <section ref={sectionRef} className="py-6 sm:py-10">
       <div className="mx-auto max-w-7xl px-4">
         <div className="mb-10 text-center">
-          <h2 className="font-heading text-3xl font-bold md:text-4xl">Shop by Category</h2>
-          <p className="mt-2 text-muted-foreground">Explore our range of premium products</p>
+          <h2 className="font-heading text-3xl font-bold md:text-4xl">
+            Shop by Category
+          </h2>
+          <p className="mt-2 text-muted-foreground">
+            Explore our range of premium products
+          </p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {categories.map((cat) => (
@@ -79,22 +83,24 @@ export function MajorCategories() {
               data-animate-category
               className="group relative overflow-hidden rounded-2xl bg-muted shadow-md ring-1 ring-white/10 transition-shadow duration-300 hover:shadow-xl"
             >
-              <div className="aspect-[4/5]">
+              <div className="aspect-4/5 rounded-2xl ring-1 ring-white/10 overflow-hidden">
                 <img
                   src={cat.image}
                   alt={cat.name}
                   className="size-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-primary/80 via-primary/20 to-transparent" />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="font-heading text-lg font-bold text-white">{cat.name}</h3>
-                <p className="mt-1 text-sm text-white/60 group-hover:text-white/80 transition-colors">
+              <div className="absolute right-0 bottom-0 left-0 p-6">
+                <h3 className="font-heading text-lg font-bold text-white">
+                  {cat.name}
+                </h3>
+                <p className="mt-1 text-sm text-white/60 transition-colors group-hover:text-white/80">
                   {cat.description}
                 </p>
                 <Button
                   size="sm"
-                  className="mt-3 gold-gradient text-primary-foreground hover:brightness-110"
+                  className="mt-3 text-primary-foreground gold-gradient hover:brightness-110"
                 >
                   Explore →
                 </Button>
