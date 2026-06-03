@@ -61,6 +61,7 @@ const fullDescriptions = [
   "High-definition landscape photo printed directly onto premium acrylic using UV-curable ink technology. The vibrant colours are sealed beneath a gloss laminate that adds depth and protects against UV fading. The acrylic panel is mounted on a clear backplate that creates a floating effect on the wall. Includes aluminium subframe with keyhole hangers for easy wall mounting.",
   "Crystal-clear acrylic portrait photo print with exceptional colour accuracy and detail reproduction. The direct UV printing process embeds the image into the acrylic surface, creating a glossy, frameless presentation. The edge-lit effect gives the portrait depth and dimension. Includes a sturdy back-mounting frame with sawtooth hangers and felt bumpers.",
   "Square-format acrylic wall photo with a sleek minimalist presentation. The high-gloss acrylic print delivers vibrant colours and sharp detail across the entire image surface. The square aspect ratio is ideal for paired displays, gallery walls, or as a standalone contemporary piece. Ready to hang with integrated back-mounting hardware.",
+  "High-quality photo desk nameplate with your favourite photo printed directly onto premium acrylic. The UV-curable ink technology delivers vibrant, true-to-life colours that are sealed beneath a gloss laminate for lasting protection. The acrylic panel is mounted on a sturdy base with a floating effect. Ideal for office desks, reception areas, or as a thoughtful corporate gift.",
 ]
 
 const productDefs: Omit<Product, "sizes" | "fullDescription" | "images">[] = [
@@ -253,6 +254,13 @@ const productDefs: Omit<Product, "sizes" | "fullDescription" | "images">[] = [
     category: "Acrylic Wall Photos", subcategory: "Square",
     isBestSeller: false, material: "Acrylic", finish: "High-Gloss",
   },
+  {
+    id: 28, name: "Custom Photo Desk Nameplate",
+    description: "Personalized photo desk nameplate with vibrant print on premium acrylic base.",
+    price: 2499, originalPrice: 3199, rating: 4.7, reviewCount: 52,
+    category: "Office Name Plates", subcategory: "Photo Desk Name Plates",
+    isBestSeller: false, material: "Acrylic", finish: "Gloss Laminate",
+  },
 ]
 
 const categoryImages: Record<string, string[]> = {
@@ -286,7 +294,11 @@ export const products: Product[] = productDefs.map((def) => {
 export const getProductById = (id: number) => products.find((p) => p.id === id)
 
 export const getProductsByCategory = (category: string) =>
-  products.filter((p) => p.category.toLowerCase().includes(category.toLowerCase()))
+  products.filter(
+    (p) =>
+      p.category.toLowerCase().replace(/[\s-]/g, "") ===
+      category.toLowerCase().replace(/[\s-]/g, ""),
+  )
 
 export const getProductsBySubcategory = (category: string, subcategory: string) =>
   products.filter(
@@ -298,3 +310,12 @@ export const getProductsBySubcategory = (category: string, subcategory: string) 
 export const getBestSellers = () => products.filter((p) => p.isBestSeller)
 
 export const getMostLoved = () => [...products].sort((a, b) => b.rating - a.rating).slice(0, 8)
+
+export function getOnePerSubcategory(items: Product[]): Product[] {
+  const seen = new Set<string>()
+  return items.filter((p) => {
+    if (seen.has(p.subcategory)) return false
+    seen.add(p.subcategory)
+    return true
+  })
+}

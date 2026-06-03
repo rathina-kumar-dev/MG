@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { getBestSellers } from "@/data/products"
+import { getBestSellers, getOnePerSubcategory } from "@/data/products"
 import { ProductCard } from "@/components/product/ProductCard"
 
 gsap.registerPlugin(ScrollTrigger)
 
 export function BestSeller() {
   const sectionRef = useRef<HTMLElement>(null)
-  const products = getBestSellers()
+  const products = getOnePerSubcategory(getBestSellers())
 
   useEffect(() => {
     const el = sectionRef.current
@@ -46,7 +46,7 @@ export function BestSeller() {
           <h2 className="font-heading text-3xl font-bold md:text-4xl">Best Sellers</h2>
           <p className="mt-2 text-muted-foreground">Our most popular nameplates loved by customers</p>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-4">
           {products.slice(0, 6).map((product) => (
             <div key={product.id} data-animate-best>
               <ProductCard product={product} />

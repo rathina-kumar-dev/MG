@@ -3,19 +3,24 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import PhotoSwipeLightbox from "photoswipe/lightbox"
 import { products } from "@/data/products"
+import type { Product } from "@/data/products"
 
 import "photoswipe/style.css"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const galleryImages = products.slice(0, 8).map((p) => ({
-  src: p.images[0],
-  thumbnail: p.images[0],
-  w: 800,
-  h: 800,
-  title: p.name,
-  alt: p.name,
-}))
+const galleryProductIds = [21, 12, 16, 18, 11, 23, 22, 24]
+const galleryImages = galleryProductIds
+  .map((id) => products.find((p) => p.id === id))
+  .filter((p): p is Product => p !== undefined)
+  .map((p) => ({
+    src: p.images[0],
+    thumbnail: p.images[0],
+    w: 800,
+    h: 800,
+    title: p.name,
+    alt: p.name,
+  }))
 
 export function Gallery() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -43,7 +48,7 @@ export function Gallery() {
             toggleActions: "play none none reverse",
             once: true,
           },
-        },
+        }
       )
     })
     return () => ctx.revert()
@@ -61,15 +66,21 @@ export function Gallery() {
       closeOnVerticalDrag: true,
     })
     lightbox.init()
-    return () => { lightbox.destroy() }
+    return () => {
+      lightbox.destroy()
+    }
   }, [])
 
   return (
     <section ref={sectionRef} className="bg-muted/50 py-6 sm:py-10">
       <div className="mx-auto max-w-7xl px-4">
         <div className="mb-10 text-center">
-          <h2 className="font-heading text-3xl font-bold md:text-4xl">Gallery</h2>
-          <p className="mt-2 text-muted-foreground">Browse our collection of crafted nameplates</p>
+          <h2 className="font-heading text-3xl font-bold md:text-4xl">
+            Gallery
+          </h2>
+          <p className="mt-2 text-muted-foreground">
+            Browse our collection of crafted nameplates
+          </p>
         </div>
         <div
           ref={galleryRef}

@@ -1,5 +1,5 @@
 import { useParams, useLocation, Link } from "react-router-dom"
-import { products, getProductsBySubcategory } from "@/data/products"
+import { products, getProductsBySubcategory, getOnePerSubcategory } from "@/data/products"
 import {
   houseNameplateSubcategories,
   officeNameplateSubcategories,
@@ -41,9 +41,9 @@ export function CategoryPage() {
   const parent = category ? parentMap[category] : undefined
 
   const filtered = subcategory
-    ? getProductsBySubcategory(parent?.label || "", subcategory.replace("-", " "))
-    : products.filter(
-        (p) => p.category.toLowerCase() === parent?.label.toLowerCase(),
+    ? getOnePerSubcategory(getProductsBySubcategory(parent?.label || "", subcategory.replace("-", " ")))
+    : getOnePerSubcategory(
+        products.filter((p) => p.category.toLowerCase() === parent?.label.toLowerCase()),
       )
 
   if (!parent) {

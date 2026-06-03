@@ -1,5 +1,5 @@
 import { useSearchParams, Link } from "react-router-dom"
-import { products, getProductsByCategory } from "@/data/products"
+import { products, getProductsByCategory, getOnePerSubcategory } from "@/data/products"
 import { catalogueCategories } from "@/data/categories"
 import { ProductCard } from "@/components/product/ProductCard"
 
@@ -9,10 +9,10 @@ export function Catalogue() {
   const productId = searchParams.get("product")
 
   const filtered = categoryFilter
-    ? getProductsByCategory(categoryFilter)
+    ? getOnePerSubcategory(getProductsByCategory(categoryFilter))
     : productId
       ? products.filter((p) => p.id === Number(productId))
-      : products
+      : getOnePerSubcategory(products)
 
   const activeCategory = catalogueCategories.find(
     (c) => c.slug === categoryFilter,

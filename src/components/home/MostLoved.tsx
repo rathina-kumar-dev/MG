@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { getMostLoved } from "@/data/products"
+import { getMostLoved, getOnePerSubcategory } from "@/data/products"
 import { ProductCard } from "@/components/product/ProductCard"
 
 gsap.registerPlugin(ScrollTrigger)
 
 export function MostLoved() {
   const sectionRef = useRef<HTMLElement>(null)
-  const products = getMostLoved()
+  const products = getOnePerSubcategory(getMostLoved())
 
   useEffect(() => {
     const el = sectionRef.current
